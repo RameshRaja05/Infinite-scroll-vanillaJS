@@ -1,0 +1,11 @@
+body{
+    background-image: linear-gradient(to right bottom, #5b749a, #305c6e, #214142, #1a2621, #080907);
+}
+
+.cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 150ms;
+}
+
