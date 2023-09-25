@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         makeCard(photos.slice(limitPerScroll, limitPerScroll + 10));
       }
     },
-    { threshold: 1 }
+    { threshold: 0.7 }
   );
 
   observer.observe(document.querySelector(".card:last-child"));
