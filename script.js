@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       const lastCard = entries[0];
       if (lastCard.isIntersecting) {
         //every time we make 10 cards per scroll
-        console.log("observe")
         makeCard(photos.slice(limitPerScroll, limitPerScroll + 10));
         observer.observe(document.querySelector(".card:last-child"));
         observer.unobserve(lastCard.target);
