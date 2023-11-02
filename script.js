@@ -1,12 +1,12 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  const API_URL = "https://jsonplaceholder.typicode.com/photos";
+  const API_URL = "https://jsonplaceholder.typicode.com/photos?";
   const cardsContainer = document.querySelector(".cards");
   const spinnerBar = document.querySelector(".spinner-border");
   let limitPerScroll = 0;
 
   async function fetchPosts() {
     try {
-      const res = await fetch(API_URL, { method: "GET" });
+      const res = await fetch(API_URL+new URLSearchParams({albumId:1}), { method: "GET" });
       if (res.ok) {
         const data = await res.json();
         return data;
@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   } catch (e) {
     throw new Error(`An error occurred :${e}`);
   }
-
   //scroll effect
   //it observe the last card whenever last card visible to the screen it loads next 10 cards
   const observer = new IntersectionObserver(
@@ -32,10 +31,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       const lastCard = entries[0];
       if (lastCard.isIntersecting) {
         //every time we make 10 cards per scroll
-        console.log("observing now");
-        observer.unobserve(lastCard.target);
-        observer.observe(document.querySelector(".card:last-child"));
+        console.log("observe")
         makeCard(photos.slice(limitPerScroll, limitPerScroll + 10));
+        observer.observe(document.querySelector(".card:last-child"));
+        observer.unobserve(lastCard.target);
       }
     },
     { threshold: 0.7 }
@@ -47,7 +46,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     // if we run out of results we'll stop making cards
     if (data.length === 0) {
       spinnerBar.classList.remove("spinner-border");
-      observer.disconnect();
       return;
     }
     for (let photo of data) {
